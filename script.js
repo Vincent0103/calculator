@@ -14,7 +14,7 @@ function divide(a, b) {
     if (a / b === NaN) {
         return "err";
     } else if (a / b === Infinity) {
-        return "Cannot divide by 0 idiot";
+        return "impossible";
     } else {
         return Math.round((a / b) * 10**5) / 10**5;
     }
@@ -57,6 +57,15 @@ function getOperators(arr) {
     return arr.filter(item => item.match(/[+\-*/]/g));
 }
 
+function checkCorrectOperation(result, operation) {
+    if (typeof operate(operation[0], operation[1], operation[2]) === "string") {
+        result = operate(operation[0], operation[1], operation[2]);
+    } else {
+        result += operate(operation[0], operation[1], operation[2]);
+    }
+    return result;
+}
+
 function calcDisplay(btn) {
     let result = 0;
     const screenNums = document.querySelector(".screen-nums");
@@ -73,7 +82,7 @@ function calcDisplay(btn) {
         /* when we split the operation, the last element is an empty string due
          to the extra spaces around the operator in screenNums */
         if (operation.length === 5) {
-            result += operate(operation[0], operation[1], operation[2]);
+            result = checkCorrectOperation(result, operation);
             screenNums.textContent = `${result} ${operation[3]} `;
         }
 
@@ -86,12 +95,15 @@ function calcDisplay(btn) {
         } else if (operation[2] === "") {
             result = "";
         } else {
-            result += operate(operation[0], operation[1], operation[2]);
+            result = checkCorrectOperation(result, operation);
         }
         screenNums.textContent = result;
 
     } else if (btn.textContent === "AC") screenNums.textContent = "";
-
+    // else if (btn.textContent === "->") {
+    //     let currentOperation = screenNums.textContent.split(" ");
+    //     console.log(currentOperation);
+    // }
 }
 
 window.addEventListener("DOMContentLoaded", () => {

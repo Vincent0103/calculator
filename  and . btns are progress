@@ -1,0 +1,2 @@
+[main 001f484] Make calculator functional even with big expression, -
+ 3 files changed, 67 insertions(+), 26 deletions(-)
