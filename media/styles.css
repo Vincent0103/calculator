@@ -1,0 +1,80 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E7DECC;
+    font-family: "Inter", sans-serif;
+}
+
+.calc-screen {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 40px 10px;
+    height: 80px;
+    background-color: #B2D3C2;
+}
+
+.screen-nums {
+    font-size: 3em;
+    margin: 5px 10px;
+    letter-spacing: -2px;
+}
+
+.calc-middle-body {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px;
+}
+
+.task-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    background-color: #BC544B;
+    height: 50px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.calc-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 480px;
+    width: 400px;
+    background-color: #7C6E7F;
+    border-radius: 15px;
+}
+
+.calc-lower-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.calc-digits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 80px;
+    background-color: #413839;
+    color: #FEF9F3;
+    border-radius: 10px;
+}
+
+.calc-btns {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 15px 10px;
+}
+
+.placeholder-digit {
+    height: 50px;
+    width: 80px;
+    /* background-color: #413839; */
+    border-radius: 10px;
+}
