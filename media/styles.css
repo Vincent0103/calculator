@@ -2,7 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #E7DECC;
+    background-color: #FBFBF9;
     font-family: "Inter", sans-serif;
 }
 
@@ -27,14 +27,25 @@ body {
     margin: 0 10px;
 }
 
-.task-btns {
+.enter-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    background-color: rgb(255, 250, 218, .8);
+    height: 50px;
+    width: 180px;
+    border-radius: 10px;
+}
+
+.clr-btns {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.4em;
     background-color: #BC544B;
     height: 50px;
-    width: 180px;
+    width: 80px;
     border-radius: 10px;
 }
 
