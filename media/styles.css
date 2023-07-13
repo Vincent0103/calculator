@@ -107,7 +107,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
-    animation: all 200ms ease-out;
+    transition: .1s;
 }
 
 .clickable:hover {
