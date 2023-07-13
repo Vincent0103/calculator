@@ -54,41 +54,58 @@ function operate(a, op, b) {
 function getOperators(arr) {
   // check if the obj parameter is a string or an array
   if (typeof arr === "string") return arr.match(/[+\-*/]/g);
-  else if (Array.isArray(arr)) return arr.filter((item) => item.match(/[+\-*/]/g));
+  else if (Array.isArray(arr))
+    return arr.filter((item) => item.match(/[+\-*/]/g));
   else return false;
 }
 
 function checkCorrectOperation(result, operation) {
-    if (typeof operate(operation[0], operation[1], operation[2]) === "string") {
-        result = operate(operation[0], operation[1], operation[2]);
-    } else if (operation[2] === "") {
-        result = "";
-    } else {
-        result += operate(operation[0], operation[1], operation[2]);
+  if (typeof operate(operation[0], operation[1], operation[2]) === "string") {
+    result = operate(operation[0], operation[1], operation[2]);
+  } else if (operation[2] === "") {
+    result = "";
+  } else {
+    result += operate(operation[0], operation[1], operation[2]);
   }
   return result;
 }
 
 function removeLastDigit(operation) {
-    let lastOperationDigit;
-    if (operation[operation.length - 1] === "") {
-      lastOperationDigit = operation[operation.length - 2];
-    } else {
-      lastOperationDigit = operation[operation.length - 1];
-    }
-    return lastOperationDigit;
+  let lastOperationDigit;
+  if (operation[operation.length - 1] === "") {
+    lastOperationDigit = operation[operation.length - 2];
+  } else {
+    lastOperationDigit = operation[operation.length - 1];
+  }
+  return lastOperationDigit;
 }
 
 // function getLastDigit(operation)
 
 function rewindToLastMove(endDigit, htmlElement) {
-    if (
-    Number.isInteger(parseInt(endDigit))
-    ) {
+  if (Number.isInteger(parseInt(endDigit))) {
     htmlElement.textContent = "";
-    } else if (getOperators(endDigit)) {
-        htmlElement.textContent = htmlElement.textContent.slice(0, -3);
-    }
+  } else if (getOperators(endDigit)) {
+    htmlElement.textContent = htmlElement.textContent.slice(0, -3);
+  }
+}
+
+function checkTextContentLength(htmlElement) {
+  if (
+    htmlElement.textContent.length > 9 &&
+    htmlElement.textContent.length <= 15
+  ) {
+    htmlElement.style.fontSize = "2.3em";
+  } else if (
+    htmlElement.textContent.length > 15 &&
+    htmlElement.textContent.length <= 23
+  ) {
+    htmlElement.style.fontSize = "1.5em";
+  } else if (htmlElement.textContent.length > 23) {
+    htmlElement.textContent = htmlElement.textContent.slice(0, 23);
+  } else {
+    htmlElement.style.fontSize = "3em";
+  }
 }
 
 function calcDisplay(btn) {
@@ -97,15 +114,16 @@ function calcDisplay(btn) {
 
   if (Number.isInteger(parseInt(btn.textContent))) {
     screenNums.textContent += btn.textContent;
-
   } else if (btn.textContent === ".") {
+    screenNums.textContent += ".";
     const operation = screenNums.textContent.split(" ");
-    const lastDigit = "";
 
-    console.log(lastDigit);
-    if (!getOperators(lastDigit) || lastDigit !== ".") {
-        screenNums.textContent += ".";
-    };
+    operation.forEach(digit => {
+      if (digit.match(/[.]/g) !== null && digit.match(/[.]/g).length >= 2) {
+        screenNums.textContent = screenNums.textContent.slice(0, screenNums.textContent.length - 1);
+      }
+    })
+
 
     // check if the clicked btn is an operator
   } else if (
@@ -113,7 +131,7 @@ function calcDisplay(btn) {
     btn.textContent === getOperators(btn.textContent)[0]
   ) {
     screenNums.textContent += ` ${btn.textContent} `;
-    operation = screenNums.textContent.split(" ");
+    const operation = screenNums.textContent.split(" ");
 
     /* when we split the operation, the last element is an empty string due
          to the extra spaces around the operator in screenNums */
@@ -124,7 +142,7 @@ function calcDisplay(btn) {
       else screenNums.textContent = `${result} ${operation[3]} `;
     }
   } else if (btn.textContent === "enter") {
-    let operation = screenNums.textContent.split(" ");
+    const operation = screenNums.textContent.split(" ");
 
     // update result value based on what's in the calculator screen
     if (operation.length === 1 || operation[2] === "") {
@@ -135,13 +153,16 @@ function calcDisplay(btn) {
     screenNums.textContent = result;
   } else if (btn.textContent === "AC") screenNums.textContent = "";
   else if (btn.textContent === "->") {
-    let currentOperation = screenNums.textContent.split(" ")
+    const operation = screenNums.textContent.split(" ");
 
     // check what character is being deleted then remove it from calculator screen
-    let lastOperationDigit = removeLastDigit(currentOperation);
-
+    let lastOperationDigit = removeLastDigit(operation);
     rewindToLastMove(lastOperationDigit, screenNums);
   }
+
+  /* resize font size inside the calc's screen if the numbers are too long
+  or make user unable to type further more */
+  checkTextContentLength(screenNums);
 }
 
 window.addEventListener("DOMContentLoaded", () => {
