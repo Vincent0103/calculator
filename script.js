@@ -119,6 +119,9 @@ function calcDisplay(btn) {
     const operation = screenNums.textContent.split(" ");
 
     operation.forEach(digit => {
+
+      /* check if in each numbers in the operation the "." is already here
+      if yes remove the second "." in the calculator screen */
       if (digit.match(/[.]/g) !== null && digit.match(/[.]/g).length >= 2) {
         screenNums.textContent = screenNums.textContent.slice(0, screenNums.textContent.length - 1);
       }
@@ -165,24 +168,44 @@ function calcDisplay(btn) {
   checkTextContentLength(screenNums);
 }
 
+function addHoverEffect(htmlElement, range) {
+  htmlElement.addEventListener("mouseover", e => {
+
+    /* get a random degree from the range between a negative and a positive number
+    eg: range = 4; randomdeg is between -2 and 2*/
+    const randomDeg = Math.round((Math.random() - .5) * range);
+    e.target.style.transform = `rotate(${randomDeg}deg)`;
+  })
+
+  htmlElement.addEventListener("mouseout", e => {
+    e.target.style.transform = "rotate(0deg)";
+  })
+}
+
 window.addEventListener("DOMContentLoaded", () => {
-  const calcDigits = document.querySelectorAll(".calc-digits");
+  const calcBtn = document.querySelectorAll(".calc-btn");
   const enterBtn = document.querySelector(".enter-btn");
   const clrBtns = document.querySelectorAll(".clr-btns");
 
-  calcDigits.forEach((digit) => {
+  calcBtn.forEach((digit) => {
     digit.addEventListener("click", () => {
       calcDisplay(digit);
     });
+
+    addHoverEffect(digit, 6);
   });
 
   enterBtn.addEventListener("click", () => {
     calcDisplay(enterBtn);
   });
 
+  addHoverEffect(enterBtn, 2);
+
   clrBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       calcDisplay(btn);
     });
+
+    addHoverEffect(btn, 6);
   });
 });
