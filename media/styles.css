@@ -99,7 +99,7 @@ body {
     border-radius: 10px;
 }
 
-.hoverable {
+.clickable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -110,7 +110,7 @@ body {
     animation: all 200ms ease-out;
 }
 
-.hoverable:hover {
+.clickable:hover {
     font-size: 2em;
     /* transform: rotate(5deg); */
 }

@@ -84,7 +84,7 @@ function removeLastDigit(operation) {
 
 function rewindToLastMove(endDigit, htmlElement) {
   if (Number.isInteger(parseInt(endDigit))) {
-    htmlElement.textContent = "";
+    htmlElement.textContent = htmlElement.textContent.slice(0, -1);
   } else if (getOperators(endDigit)) {
     htmlElement.textContent = htmlElement.textContent.slice(0, -3);
   }
@@ -182,10 +182,33 @@ function addHoverEffect(htmlElement, range) {
   })
 }
 
+function calcKeyBoardSupport(htmlElement) {
+  document.addEventListener("keydown", e => {
+    htmlElement.forEach(btn => {
+      console.log(e.key);
+      if (e.key === btn.textContent) calcDisplay(btn);
+      else if ((e.key === "Enter" || e.key === "=") && btn.textContent === "enter") {
+        calcDisplay(btn);
+      } else if (e.key === "/") {
+        e.preventDefault();
+
+        if (btn.textContent === "/") calcDisplay(btn);
+      } else if (e.key === "Backspace" && btn.textContent === "->") {
+        calcDisplay(btn);
+      } else if ((e.key === "Delete" || e.key === "Escape") && btn.textContent === "AC") {
+        calcDisplay(btn);
+      }
+    })
+  })
+}
+
 window.addEventListener("DOMContentLoaded", () => {
   const calcBtn = document.querySelectorAll(".calc-btn");
   const enterBtn = document.querySelector(".enter-btn");
   const clrBtns = document.querySelectorAll(".clr-btns");
+  const clickable = document.querySelectorAll(".clickable");
+
+  calcKeyBoardSupport(clickable);
 
   calcBtn.forEach((digit) => {
     digit.addEventListener("click", () => {
@@ -208,4 +231,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
     addHoverEffect(btn, 6);
   });
+
 });
