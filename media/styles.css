@@ -93,8 +93,6 @@ body {
 .placeholder-digit {
     height: 50px;
     width: 80px;
-    /* background-color: #413839; */
-    /* border: 1.5px solid  */
     border: 1.5px solid rgba(12, 4, 4, 0);
     border-radius: 10px;
 }

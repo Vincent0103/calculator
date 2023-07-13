@@ -135,6 +135,9 @@ function calcDisplay(btn) {
   ) {
     screenNums.textContent += ` ${btn.textContent} `;
     const operation = screenNums.textContent.split(" ");
+    if (!operation[0]) {
+      screenNums.textContent = "";
+    }
 
     /* when we split the operation, the last element is an empty string due
          to the extra spaces around the operator in screenNums */
